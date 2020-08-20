@@ -3,8 +3,8 @@ python: 3.7
 
 env:
   global:
-    # doctr generated secure variable for documentation upload
-    - secure: "<your secure here>"
+    # Doctr deploy key for pcdshub/M2K2
+    - secure: "Fzhu9pit/q4Hei6oaEQDLDNp/3tiqviQAOBaphWCEtYexxD71z3slAmacwUB8zwTkTFdbtL3/ZI0BJ1rKIFr2ZZqjIrz+kXxq1n6j0/MI4j16ljrZPrVy4oyjaRGXWQJ3l5RYv9GZyVuyy7HH83lp6tK42NPjaLvD2GXrGmBzEttlZoFIzqjsXt1w5nz4MMITAy5UcK/VYkezsAmgFxLwN0j17DfhDZZ5Gl2YDyYp2uqU2EcV1w54iCgyw2zYl9QoaYBTmZi0EVQBVHnhYD2e5bwkphsrq+pe4zmo5a+vKtPiGu/iMQIOFs195Ue3li9oPE+blxHDkROEbk84JY1s8WWXAPE5B9C+mR2nB5oRRjvqUqqSikBROkBQaIhPoFzDsSbfsCGtwstWz69zxbZ6F0gXKe0vwtgCuYLfm6CZP1u4X919KF34YVstrbX+l0Sk+TiaNaOdeOyv01IsdCV+dZ4I3KXB80gERUEvVT4yRRF5TAu0Zz5bhdWf4xnHV/6+jAGTDmUC18CQZFCFn+5bEn6E8KXwgH6LBGF85/jxpgEuS3gxUO+e+46MepQLnB1vPlMUGVIKGLx2baYhg9+LuQ5EPjndTxXzxL15APekl5DiSkCoft8uwVLviJjIXXtYSf8xmhG0pG8HrRlRISIEFxmpOxWo6u6Ydra/+X26Y0="
     - TWINCAT_STYLE_EXCLUDE=
     # If using a custom version of the CI helpers, change the following in
     # addition to the `import` block elow:
