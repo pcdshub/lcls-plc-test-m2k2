@@ -1,0 +1,173 @@
+
+
+DUTs
+----
+
+
+GVLs
+----
+
+
+POUs
+----
+
+
+FB_MotionStageStats
+^^^^^^^^^^^^^^^^^^^
+
+::
+
+    FUNCTION_BLOCK FB_MotionStageStats EXTENDS FB_BasicStats
+    VAR_INPUT
+        Axis : DUT_MotionStage;
+    END_VAR
+    VAR_OUTPUT
+    END_VAR
+    VAR
+        aActPos : ARRAY [0..ARRAY_SIZE] OF LREAL;
+        idx: UINT;
+    END_VAR
+    VAR CONSTANT
+        ARRAY_SIZE : UINT := 500;
+    END_VAR
+    aActPos[idx] := Axis.Axis.NcToPlc.ActPos;
+
+    idx := (idx + 1) MOD ARRAY_SIZE;
+
+    SUPER^(aSignal:=aActPos, bAlwaysCalc:=NOT bReset);
+
+    END_FUNCTION_BLOCK
+
+
+FB_PAT
+^^^^^^
+
+::
+
+    FUNCTION_BLOCK FB_PAT
+    VAR_INPUT
+        Velocity : LREAL;
+    END_VAR
+    VAR_OUTPUT
+        FwLimPos : LREAL; // Positive limit position
+        BwLimPos : LREAL; //
+    END_VAR
+    VAR_IN_OUT
+        Stage : DUT_MotionStage;
+    END_VAR
+    VAR
+        fbMicroStepCount : FB_MicroStepCountTest;
+
+        fbMove: MC_Jog;
+        tFwLim: F_TRIG;
+        tBwLim: F_TRIG;
+        Dir: INT;
+    END_VAR
+    // Relative move until limit, reverse and repeat, record positions, do math and spit out travel range
+
+    tFwLim(CLK:=Stage.bLimitForwardEnable);
+    tBwLim(CLK:=Stage.bLimitBackwardEnable);
+
+    WHILE Stage.bLimitBackwardEnable AND Stage.bLimitForwardEnable DO
+        IF tFwLim.Q OR tBwLim.Q THEN
+            IF (Dir = 1 AND tBwLim.Q) OR (Dir = -1 AND tFwLim.Q) THEN
+                // Error, limits backwards
+                EXIT;
+            END_IF
+
+            IF tFwLim.Q THEN
+                FwLimPos := Stage.Axis.NcToPlc.ActPos;
+            ELSIF tBwLim.Q THEN
+                BwLimPos := Stage.Axis.NcToPlc.ActPos;
+            END_IF
+
+
+        END_IF
+
+
+
+    END_WHILE
+
+    // Discover minimum step size in one direction
+
+    // Attempt minimum step size in alternating direction
+
+    fbMove(Axis:=Stage.Axis, Velocity:=Velocity, Mode:=E_JogMode.MC_JOGMODE_CONTINOUS);
+
+    END_FUNCTION_BLOCK
+
+
+Main
+^^^^
+
+::
+
+    PROGRAM Main
+    VAR
+        {attribute 'TcLinkTo' := '.bLimitForwardEnable:=TIIB[M2K2 X]^STM Status^Status^Digital input 1;
+                                  .bLimitBackwardEnable:=TIIB[M2K2 X]^STM Status^Status^Digital input 2'}
+        M1 : DUT_MotionStage := (nEnableMode:=ENUM_StageEnableMode.DURING_MOTION);
+        fbMotionStageM1 : FB_MotionStage;
+        {attribute 'TcLinkTo' := '.bLimitForwardEnable:=TIIB[M2K2 Y]^STM Status^Status^Digital input 1;
+                                  .bLimitBackwardEnable:=TIIB[M2K2 Y]^STM Status^Status^Digital input 2'}
+        M2 : DUT_MotionStage := (nEnableMode:=ENUM_StageEnableMode.DURING_MOTION);
+        fbMotionStageM2 : FB_MotionStage;
+        {attribute 'TcLinkTo' := '.bLimitForwardEnable:=TIIB[M2K2 rX]^STM Status^Status^Digital input 1;
+                                  .bLimitBackwardEnable:=TIIB[M2K2 rX]^STM Status^Status^Digital input 2'}
+        M3 : DUT_MotionStage := (nEnableMode:=ENUM_StageEnableMode.DURING_MOTION);
+        fbMotionStageM3 : FB_MotionStage;
+
+
+        fbStepSizeTest_M2K2X : FB_MicroStepCountTest := (
+            fStepSize := 0.00015625,
+            nSteps := 1000,
+            fMicroStep := 0.00015625,
+            fVelocity := 1,
+            tSettleTime := T#1S);
+
+        fbStepSizeTest_M2K2Y : FB_MicroStepCountTest := (
+            fStepSize := 0.0097656,
+            nSteps := 1000,
+            fMicroStep := 0.0097656,
+            fVelocity := 0.5,
+            tSettleTime := T#1S);
+
+        fbStepSizeTest_M2K2rX : FB_MicroStepCountTest := (
+            fStepSize := 0.0013021,
+            nSteps := 1000,
+            fMicroStep := 0.0013021,
+            fVelocity := 10,
+            tSettleTime := T#1S);
+
+        fbM1Stats : FB_MotionStageStats;
+        fbM2Stats : FB_MotionStageStats;
+        fbM3Stats : FB_MotionStageStats;
+
+        {attribute 'TcLinkTo' := 'TIID^Device 1 (EtherCAT)^Term 1 (EK1100)^STO (EL1004)^Channel 1^Input'}
+        bSTOEnable1 AT %I* : BOOL;
+        {attribute 'TcLinkTo' := 'TIID^Device 1 (EtherCAT)^Term 1 (EK1100)^STO (EL1004)^Channel 2^Input'}
+        bSTOEnable2 AT %I* : BOOL;
+
+        END_VAR
+    M1.nEnableMode;
+    M2.nEnableMode;
+    M3.nEnableMode;
+
+    M1.bHardwareEnable := bSTOEnable1 AND bSTOEnable2;
+    M2.bHardwareEnable := bSTOEnable1 AND bSTOEnable2;
+    M3.bHardwareEnable := bSTOEnable1 AND bSTOEnable2;
+
+    fbMotionStageM1(stMotionStage:=M1);
+    fbMotionStageM2(stMotionStage:=M2);
+    fbMotionStageM3(stMotionStage:=M3);
+
+    fbM1Stats(Axis:=M1);
+    fbM2Stats(Axis:=M2);
+    fbM3Stats(Axis:=M3);
+
+    fbStepSizeTest_M2K2X(Axis:=M1.Axis);
+    fbStepSizeTest_M2K2Y(Axis:=M2.Axis);
+    fbStepSizeTest_M2K2rX(Axis:=M3.Axis);
+
+    END_PROGRAM
+

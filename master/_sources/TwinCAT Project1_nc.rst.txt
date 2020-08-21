@@ -1,0 +1,99 @@
+
+NC Settings
+-----------
+
+.. csv-table::
+    :header: Axis ID, Name
+    :align: center
+
+        1, M2K2 X
+        2, M2K2 Y
+        3, M2K2 rX
+
+
+
+Axis 1: M2K2 X
+^^^^^^^^^^^^^^
+
+.. csv-table::
+    :header: Setting, Value
+    :align: center
+
+    Axis ID, 1
+    Name, M2K2 X
+    AxisType, 1
+    CreateSymbols, true
+    Dynamic:Acceleration, 100
+    Dynamic:AccelerationMaximum, 100
+    Dynamic:Deceleration, 100
+    Dynamic:DecelerationMaximum, 100
+    Dynamic:DelayTime, 0.008
+    Enc:EncType, 29
+    Enc:Inc:RefSoftSyncMask, #x00000000
+    Enc:MaxCount, #xffffffff
+    Enc:Offset, -21445
+    Enc:ReferenceSystem, 1
+    Enc:ScaleFactorNumerator, 5e-06
+    Id, 1
+    OtherSettings:AllowMotionCmdToSlave, true
+    Velo:Maximum, 20
+
+
+
+Axis 2: M2K2 Y
+^^^^^^^^^^^^^^
+
+.. csv-table::
+    :header: Setting, Value
+    :align: center
+
+    Axis ID, 2
+    Name, M2K2 Y
+    AxisType, 1
+    CreateSymbols, true
+    Dynamic:Acceleration, 10
+    Dynamic:AccelerationMaximum, 10
+    Dynamic:Deceleration, 10
+    Dynamic:DecelerationMaximum, 10
+    Dynamic:DelayTime, 0.008
+    Dynamic:Jerk, 15
+    Enc:EncType, 29
+    Enc:Inc:RefSoftSyncMask, #x00000000
+    Enc:MaxCount, #xffffffff
+    Enc:Offset, -29.8
+    Enc:ReferenceSystem, 1
+    Enc:ScaleFactorNumerator, 5e-06
+    Id, 2
+    OtherSettings:AllowMotionCmdToSlave, true
+    Velo:Maximum, 1.25
+
+
+
+Axis 3: M2K2 rX
+^^^^^^^^^^^^^^^
+
+.. csv-table::
+    :header: Setting, Value
+    :align: center
+
+    Axis ID, 3
+    Name, M2K2 rX
+    AxisType, 1
+    CreateSymbols, true
+    Dynamic:Acceleration, 200
+    Dynamic:AccelerationMaximum, 200
+    Dynamic:Deceleration, 200
+    Dynamic:DecelerationMaximum, 200
+    Dynamic:DelayTime, 0.008
+    Enc:EncType, 29
+    Enc:Inc:RefSoftSyncMask, #x00000000
+    Enc:MaxCount, #x00061a80
+    Enc:Offset, -1152
+    Enc:ReferenceSystem, 1
+    Enc:ScaleFactorNumerator, 0.0025826446
+    General:UnitName, urad
+    Id, 3
+    OtherSettings:AllowMotionCmdToSlave, true
+    Velo:Maximum, 140.85
+
+

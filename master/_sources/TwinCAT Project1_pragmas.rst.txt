@@ -1,0 +1,21 @@
+
+Pragmas
+-------
+
+.. csv-table::
+    :header: PLC Name, Total Pragmas, Errors
+    :align: center
+
+    :ref:`M2K2 <M2K2_overview_pragmas>`, 5, 0
+
+
+.. _M2K2_overview_pragmas:
+
+
+M2K2
+^^^^
+
+Total pragmas found: 5
+Total linter errors: 0
+
+
