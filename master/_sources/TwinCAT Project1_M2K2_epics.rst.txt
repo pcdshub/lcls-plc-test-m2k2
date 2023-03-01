@@ -99,7 +99,7 @@ FB_MotionStageStats
       - | io: input
 
 
-    
+  
 LCLS_General.FB_BasicStats
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -691,7 +691,7 @@ lcls_twincat_motion.PMPS.ST_BeamParams
       - | io: input
 
 
-                                                                                                     
+                                                                                                    
 Database Records
 ----------------
 
@@ -703,79 +703,47 @@ Database Records
       - Type
       - Description
       - Pragma
+    * - $(PREFIX)LCLSGeneral:LogHost_RBV
+      - waveform
+      - The log host IP address
+      - | io: output
+
+
+    * - $(PREFIX)LCLSGeneral:LogHost
+      - waveform
+      - The log host IP address
+      - | io: output
+
+
+    * - $(PREFIX)LCLSGeneral:LogPort_RBV
+      - longin
+      - The log host UDP port
+      - | io: output
+
+
+    * - $(PREFIX)LCLSGeneral:LogPort
+      - longout
+      - The log host UDP port
+      - | io: output
+
+
     * - $(PREFIX)AccumulatedFastFaults_RBV
       - longin
       - PMPS_GVL.AccumulatedFF
       - | io: input
 
 
-    * - $(PREFIX)CurrentBP:Attenuation_RBV
-      - ai
-      - PMPS_GVL.stCurrentBeamParameters.fAtt
-      - | archive: 1s monitor
-        | field: EGU %
-        | io: input
-
-
-    * - $(PREFIX)CurrentBP:Cohort_RBV
+    * - $(PREFIX)SuccessfulPreemptions_RBV
       - longin
-      - PMPS_GVL.stCurrentBeamParameters.nCohortInt
-      - | archive: 1s monitor
-        | io: input
+      - PMPS_GVL.SuccessfulPreemption
+      - | io: input
 
 
-    * - $(PREFIX)CurrentBP:PhotonEnergyRanges_RBV
-      - longin
-      - PMPS_GVL.stCurrentBeamParameters.neVRange
-      - | archive: 1s monitor
-        | field: EGU eV
-        | io: input
-
-
-    * - $(PREFIX)CurrentBP:PulseEnergy_RBV
-      - ai
-      - PMPS_GVL.stCurrentBeamParameters.fPP_mJ
-      - | archive: 1s monitor
-        | field: EGU mJ
-        | io: input
-
-
-    * - $(PREFIX)CurrentBP:Rate_RBV
-      - longin
-      - PMPS_GVL.stCurrentBeamParameters.nRate
-      - | archive: 1s monitor
-        | field: EGU Hz
-        | io: input
-
-
-    * - $(PREFIX)CurrentBP:Stopper_RBV
+    * - $(PREFIX)FullBeamCnst:Stopper_RBV
       - waveform
-      - PMPS_GVL.stCurrentBeamParameters.aStoppers
+      - Full beam constant
       - | archive: 1s monitor
         | io: input
-
-
-    * - $(PREFIX)CurrentBP:Valid_RBV
-      - bi
-      - PMPS_GVL.stCurrentBeamParameters.xValid
-      - | archive: 1s monitor
-        | io: input
-
-
-    * - $(PREFIX)eVRangeCnst
-      - waveform
-      - eV Range constants
-      - | archive: 1s monitor
-        | field: EGU keV
-        | io: output
-
-
-    * - $(PREFIX)eVRangeCnst_RBV
-      - waveform
-      - eV Range constants
-      - | archive: 1s monitor
-        | field: EGU keV
-        | io: output
 
 
     * - $(PREFIX)FullBeamCnst:Attenuation_RBV
@@ -783,21 +751,6 @@ Database Records
       - Full beam constant
       - | archive: 1s monitor
         | field: EGU %
-        | io: input
-
-
-    * - $(PREFIX)FullBeamCnst:Cohort_RBV
-      - longin
-      - Cohort increments on each arbitration cycle
-      - | archive: 1s monitor
-        | io: input
-
-
-    * - $(PREFIX)FullBeamCnst:PhotonEnergyRanges_RBV
-      - longin
-      - Full beam constant
-      - | archive: 1s monitor
-        | field: EGU eV
         | io: input
 
 
@@ -809,6 +762,13 @@ Database Records
         | io: input
 
 
+    * - $(PREFIX)FullBeamCnst:Cohort_RBV
+      - longin
+      - Cohort increments on each arbitration cycle
+      - | archive: 1s monitor
+        | io: input
+
+
     * - $(PREFIX)FullBeamCnst:Rate_RBV
       - longin
       - Full beam constant
@@ -817,10 +777,11 @@ Database Records
         | io: input
 
 
-    * - $(PREFIX)FullBeamCnst:Stopper_RBV
-      - waveform
+    * - $(PREFIX)FullBeamCnst:PhotonEnergyRanges_RBV
+      - longin
       - Full beam constant
       - | archive: 1s monitor
+        | field: EGU eV
         | io: input
 
 
@@ -831,79 +792,9 @@ Database Records
         | io: input
 
 
-    * - $(PREFIX)LCLSGeneral:LogHost
+    * - $(PREFIX)SafeBeamCnst:Stopper_RBV
       - waveform
-      - The log host IP address
-      - | io: output
-
-
-    * - $(PREFIX)LCLSGeneral:LogHost_RBV
-      - waveform
-      - The log host IP address
-      - | io: output
-
-
-    * - $(PREFIX)LCLSGeneral:LogPort
-      - longout
-      - The log host UDP port
-      - | io: output
-
-
-    * - $(PREFIX)LCLSGeneral:LogPort_RBV
-      - longin
-      - The log host UDP port
-      - | io: output
-
-
-    * - $(PREFIX)RequestedBP:Attenuation_RBV
-      - ai
-      - PMPS_GVL.stRequestedBeamParameters.fAtt
-      - | archive: 1s monitor
-        | field: EGU %
-        | io: input
-
-
-    * - $(PREFIX)RequestedBP:Cohort_RBV
-      - longin
-      - PMPS_GVL.stRequestedBeamParameters.nCohortInt
-      - | archive: 1s monitor
-        | io: input
-
-
-    * - $(PREFIX)RequestedBP:PhotonEnergyRanges_RBV
-      - longin
-      - PMPS_GVL.stRequestedBeamParameters.neVRange
-      - | archive: 1s monitor
-        | field: EGU eV
-        | io: input
-
-
-    * - $(PREFIX)RequestedBP:PulseEnergy_RBV
-      - ai
-      - PMPS_GVL.stRequestedBeamParameters.fPP_mJ
-      - | archive: 1s monitor
-        | field: EGU mJ
-        | io: input
-
-
-    * - $(PREFIX)RequestedBP:Rate_RBV
-      - longin
-      - PMPS_GVL.stRequestedBeamParameters.nRate
-      - | archive: 1s monitor
-        | field: EGU Hz
-        | io: input
-
-
-    * - $(PREFIX)RequestedBP:Stopper_RBV
-      - waveform
-      - PMPS_GVL.stRequestedBeamParameters.aStoppers
-      - | archive: 1s monitor
-        | io: input
-
-
-    * - $(PREFIX)RequestedBP:Valid_RBV
-      - bi
-      - PMPS_GVL.stRequestedBeamParameters.xValid
+      - Safe beam constant
       - | archive: 1s monitor
         | io: input
 
@@ -916,26 +807,18 @@ Database Records
         | io: input
 
 
-    * - $(PREFIX)SafeBeamCnst:Cohort_RBV
-      - longin
-      - Cohort increments on each arbitration cycle
-      - | archive: 1s monitor
-        | io: input
-
-
-    * - $(PREFIX)SafeBeamCnst:PhotonEnergyRanges_RBV
-      - longin
-      - Safe beam constant
-      - | archive: 1s monitor
-        | field: EGU eV
-        | io: input
-
-
     * - $(PREFIX)SafeBeamCnst:PulseEnergy_RBV
       - ai
       - Safe beam constant
       - | archive: 1s monitor
         | field: EGU mJ
+        | io: input
+
+
+    * - $(PREFIX)SafeBeamCnst:Cohort_RBV
+      - longin
+      - Cohort increments on each arbitration cycle
+      - | archive: 1s monitor
         | io: input
 
 
@@ -947,10 +830,11 @@ Database Records
         | io: input
 
 
-    * - $(PREFIX)SafeBeamCnst:Stopper_RBV
-      - waveform
+    * - $(PREFIX)SafeBeamCnst:PhotonEnergyRanges_RBV
+      - longin
       - Safe beam constant
       - | archive: 1s monitor
+        | field: EGU eV
         | io: input
 
 
@@ -961,10 +845,126 @@ Database Records
         | io: input
 
 
-    * - $(PREFIX)SuccessfulPreemptions_RBV
+    * - $(PREFIX)eVRangeCnst_RBV
+      - waveform
+      - eV Range constants
+      - | archive: 1s monitor
+        | field: EGU keV
+        | io: output
+
+
+    * - $(PREFIX)eVRangeCnst
+      - waveform
+      - eV Range constants
+      - | archive: 1s monitor
+        | field: EGU keV
+        | io: output
+
+
+    * - $(PREFIX)CurrentBP:Stopper_RBV
+      - waveform
+      - PMPS_GVL.stCurrentBeamParameters.aStoppers
+      - | archive: 1s monitor
+        | io: input
+
+
+    * - $(PREFIX)CurrentBP:Attenuation_RBV
+      - ai
+      - PMPS_GVL.stCurrentBeamParameters.fAtt
+      - | archive: 1s monitor
+        | field: EGU %
+        | io: input
+
+
+    * - $(PREFIX)CurrentBP:PulseEnergy_RBV
+      - ai
+      - PMPS_GVL.stCurrentBeamParameters.fPP_mJ
+      - | archive: 1s monitor
+        | field: EGU mJ
+        | io: input
+
+
+    * - $(PREFIX)CurrentBP:Cohort_RBV
       - longin
-      - PMPS_GVL.SuccessfulPreemption
-      - | io: input
+      - Cohort increments on each arbitration cycle
+      - | archive: 1s monitor
+        | io: input
+
+
+    * - $(PREFIX)CurrentBP:Rate_RBV
+      - longin
+      - PMPS_GVL.stCurrentBeamParameters.nRate
+      - | archive: 1s monitor
+        | field: EGU Hz
+        | io: input
+
+
+    * - $(PREFIX)CurrentBP:PhotonEnergyRanges_RBV
+      - longin
+      - PMPS_GVL.stCurrentBeamParameters.neVRange
+      - | archive: 1s monitor
+        | field: EGU eV
+        | io: input
+
+
+    * - $(PREFIX)CurrentBP:Valid_RBV
+      - bi
+      - PMPS_GVL.stCurrentBeamParameters.xValid
+      - | archive: 1s monitor
+        | io: input
+
+
+    * - $(PREFIX)RequestedBP:Stopper_RBV
+      - waveform
+      - PMPS_GVL.stRequestedBeamParameters.aStoppers
+      - | archive: 1s monitor
+        | io: input
+
+
+    * - $(PREFIX)RequestedBP:Attenuation_RBV
+      - ai
+      - PMPS_GVL.stRequestedBeamParameters.fAtt
+      - | archive: 1s monitor
+        | field: EGU %
+        | io: input
+
+
+    * - $(PREFIX)RequestedBP:PulseEnergy_RBV
+      - ai
+      - PMPS_GVL.stRequestedBeamParameters.fPP_mJ
+      - | archive: 1s monitor
+        | field: EGU mJ
+        | io: input
+
+
+    * - $(PREFIX)RequestedBP:Cohort_RBV
+      - longin
+      - Cohort increments on each arbitration cycle
+      - | archive: 1s monitor
+        | io: input
+
+
+    * - $(PREFIX)RequestedBP:Rate_RBV
+      - longin
+      - PMPS_GVL.stRequestedBeamParameters.nRate
+      - | archive: 1s monitor
+        | field: EGU Hz
+        | io: input
+
+
+    * - $(PREFIX)RequestedBP:PhotonEnergyRanges_RBV
+      - longin
+      - PMPS_GVL.stRequestedBeamParameters.neVRange
+      - | archive: 1s monitor
+        | field: EGU eV
+        | io: input
+
+
+    * - $(PREFIX)RequestedBP:Valid_RBV
+      - bi
+      - PMPS_GVL.stRequestedBeamParameters.xValid
+      - | archive: 1s monitor
+        | io: input
 
 
 

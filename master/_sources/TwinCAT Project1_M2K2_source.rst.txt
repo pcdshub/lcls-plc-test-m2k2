@@ -39,6 +39,10 @@ FB_MotionStageStats
     END_FUNCTION_BLOCK
 
 
+Related:
+    * `FB_MotionStageStats`_
+
+
 FB_PAT
 ^^^^^^
 
@@ -95,6 +99,8 @@ FB_PAT
     fbMove(Axis:=Stage.Axis, Velocity:=Velocity, Mode:=E_JogMode.MC_JOGMODE_CONTINOUS);
 
     END_FUNCTION_BLOCK
+
+
 
 
 Main
@@ -170,4 +176,8 @@ Main
     fbStepSizeTest_M2K2rX(Axis:=M3.Axis);
 
     END_PROGRAM
+
+
+Related:
+    * `FB_MotionStageStats`_
 
